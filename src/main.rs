@@ -1,34 +1,34 @@
+use std::sync::Arc;
+use std::time::Duration;
 use proc_qq::Authentication::QRCode;
 use proc_qq::DeviceSource::JsonFile;
-use proc_qq::{result, ClientBuilder, EventResult, ShowQR};
+use proc_qq::{result, ClientBuilder, EventResult, ShowQR, run_client, MessageChainParseTrait};
 use proc_qq::re_exports::anyhow;
 use tracing::Level;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
-
 use proc_qq::re_exports::ricq::version::MACOS;
+
 
 mod daily;
 mod img;
 mod util;
+mod hitokoto;
 
 #[tokio::main]
 async fn main() {
     init_tracing_subscriber();
-    ClientBuilder::new()
+    let client = ClientBuilder::new()
         .priority_session("session.token")
         .authentication(QRCode)
         .device(JsonFile(String::from("device.json")))
         .version(&MACOS)
-        .modules(vec![daily::daily::module(), img::img::module()])
+        .modules(vec![daily::daily::module(), img::img::module(),hitokoto::hitokoto::module()])
         .result_handlers(vec![on_result {}.into()])
         .show_rq(Some(ShowQR::OpenBySystem))
         .build()
         .await
-        .unwrap()
-        .start()
-        .await
-        .unwrap()
         .unwrap();
+    run_client(client).await.unwrap();
 }
 
 fn init_tracing_subscriber() {

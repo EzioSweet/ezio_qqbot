@@ -1,6 +1,6 @@
 [package]
 name = "ezio_qqbot"
-version = "0.1.1"
+version = "0.2.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -9,11 +9,15 @@ edition = "2021"
 proc_qq = "0.1.20"
 tracing = "0.1.37"
 tracing-subscriber = "0.3.16"
+serde = "1.0.150"
+serde_json = "1.0.89"
+serde_derive = "1.0.150"
 
 [dependencies.reqwest]
 version = "0.11.13"
 default-features = false
 features=["rustls-tls","json","multipart"]
+
 
 [dependencies.tokio]
 version = "1.23.0"
