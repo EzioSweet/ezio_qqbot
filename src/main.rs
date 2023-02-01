@@ -1,8 +1,8 @@
-use std::sync::Arc;
-use std::time::Duration;
+
+
 use proc_qq::Authentication::QRCode;
 use proc_qq::DeviceSource::JsonFile;
-use proc_qq::{result, ClientBuilder, EventResult, ShowQR, run_client, MessageChainParseTrait};
+use proc_qq::{result, ClientBuilder, EventResult, ShowQR, run_client};
 use proc_qq::re_exports::anyhow;
 use tracing::Level;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};

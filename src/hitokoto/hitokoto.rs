@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+
 use proc_qq::re_exports::ricq::client::event::GroupMessageEvent;
 use proc_qq::{
     event, module, MessageChainAppendTrait, MessageSendToSourceTrait, Module, TextEleParseTrait,
