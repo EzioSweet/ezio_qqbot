@@ -1,14 +1,15 @@
+use proc_qq::Authentication::QRCode;
+use proc_qq::DeviceSource::JsonFile;
+use proc_qq::{result, ClientBuilder, EventResult, ShowQR};
+use proc_qq::re_exports::anyhow;
 use tracing::Level;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
-use proc_qq::Authentication::{QRCode};
-use proc_qq::{ClientBuilder, EventResult, result, ShowQR};
-use proc_qq::DeviceSource::JsonFile;
-use proc_qq::re_exports::anyhow;
-use proc_qq::re_exports::ricq::version::{MACOS};
+
+use proc_qq::re_exports::ricq::version::MACOS;
 
 mod daily;
-mod util;
 mod img;
+mod util;
 
 #[tokio::main]
 async fn main() {
@@ -18,8 +19,8 @@ async fn main() {
         .authentication(QRCode)
         .device(JsonFile(String::from("device.json")))
         .version(&MACOS)
-        .modules(vec![daily::daily::module(),img::img::module()])
-        .result_handlers(vec![on_result{}.into()])
+        .modules(vec![daily::daily::module(), img::img::module()])
+        .result_handlers(vec![on_result {}.into()])
         .show_rq(Some(ShowQR::OpenBySystem))
         .build()
         .await
