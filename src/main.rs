@@ -63,5 +63,5 @@ pub async fn on_result(result: &EventResult) -> anyhow::Result<bool> {
             );
         }
     }
-    Ok(false)
+    anyhow::Ok(false)
 }

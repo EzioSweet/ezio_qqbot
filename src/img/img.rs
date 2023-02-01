@@ -2,6 +2,7 @@ use proc_qq::{
     event, module, GroupMessageEvent, MessageChainAppendTrait, MessageContentTrait,
     MessageSendToSourceTrait, Module, TextEleParseTrait,
 };
+use proc_qq::re_exports::anyhow;
 
 use crate::util::reply::reply_chain;
 use proc_qq::re_exports::anyhow::Context;
@@ -25,7 +26,7 @@ async fn random_image_in_group(event: &GroupMessageEvent) -> anyhow::Result<bool
     event
         .send_message_to_source(MessageChain::default().append(img))
         .await?;
-    Ok(true)
+    anyhow::Ok(true)
 }
 
 #[event(regexp = "^搜涩图 ([\\S\\s]+)?$")]
@@ -55,7 +56,7 @@ async fn search_image_in_group(event: &GroupMessageEvent) -> anyhow::Result<bool
                                 .send_message_to_source(
                                     reply_chain(event)
                                         .await
-                                        .append("获取错误，请重试".parse_text()),
+                                        .append("\n获取错误，请重试".parse_text()),
                                 )
                                 .await?;
                         }
@@ -66,7 +67,7 @@ async fn search_image_in_group(event: &GroupMessageEvent) -> anyhow::Result<bool
                         .send_message_to_source(
                             reply_chain(event)
                                 .await
-                                .append("获取错误，请重试".parse_text()),
+                                .append("\n获取错误，请重试".parse_text()),
                         )
                         .await?;
                 }
@@ -77,13 +78,13 @@ async fn search_image_in_group(event: &GroupMessageEvent) -> anyhow::Result<bool
                 .send_message_to_source(
                     reply_chain(event)
                         .await
-                        .append("获取错误，请重试".parse_text()),
+                        .append("\n获取错误，请重试".parse_text()),
                 )
                 .await?;
         }
     }
 
-    Ok(true)
+    anyhow::Ok(true)
 }
 
 pub fn module() -> Module {
