@@ -1,0 +1,5 @@
+/target
+device.json
+session.token
+Cargo.lock
+/.idea
