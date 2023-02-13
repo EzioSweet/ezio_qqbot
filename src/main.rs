@@ -13,6 +13,7 @@ mod daily;
 mod img;
 mod util;
 mod hitokoto;
+mod poem;
 
 #[tokio::main]
 async fn main() {
@@ -22,7 +23,7 @@ async fn main() {
         .authentication(QRCode)
         .device(JsonFile(String::from("device.json")))
         .version(&MACOS)
-        .modules(vec![daily::daily::module(), img::img::module(),hitokoto::hitokoto::module()])
+        .modules(vec![daily::daily::module(), img::img::module(),hitokoto::hitokoto::module(),poem::poem::module()])
         .result_handlers(vec![on_result {}.into()])
         .show_rq(Some(ShowQR::OpenBySystem))
         .build()
